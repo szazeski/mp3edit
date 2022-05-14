@@ -13,8 +13,6 @@ const BUILD_DATE = "2022-05-13"
 
 func main() {
 
-	var file string
-	flag.StringVar(&file, "file", "", "path to mp3 file to update")
 	var title string
 	flag.StringVar(&title, "title", "", "mp3 Title")
 	var artist string
@@ -22,43 +20,53 @@ func main() {
 	var album string
 	flag.StringVar(&album, "album", "", "a string")
 
+	// todo -joinedFilename=joined.mp3
+	// todo -trimStart=5s
+	// todo -trimEnd=20s
+	// todo -mono
+	// todo -resample=20khz
+	// todo -bitrate=64kbps
+
 	flag.Parse()
 
-	if file == "" {
-		fmt.Println(" missing -file=example.mp3")
+	filenames := flag.Args()
+
+	if len(filenames) == 0 {
+		fmt.Println(" missing filenames (e.g. sample.mp3 or *.mp3)")
 		os.Exit(1)
 	}
 
-	id3File, err := id3.Open(file)
-	if err != nil {
-		fmt.Println(err)
+	for i, filename := range filenames {
+		fmt.Println(i+1, filename)
+
+		id3File, err := id3.Open(filename)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		fmt.Println("  Title: ", id3File.Title())
+		if title != "" {
+			id3File.SetTitle(title)
+			fmt.Println("         ", title)
+		}
+
+		fmt.Println("  Artist:", id3File.Artist())
+		if artist != "" {
+			id3File.SetArtist(artist)
+			fmt.Println("         ", artist)
+		}
+
+		fmt.Println("  Album: ", id3File.Album())
+		if album != "" {
+			id3File.SetAlbum(album)
+			fmt.Println("         ", album)
+		}
+
+		err = id3File.Close()
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
-
-	fmt.Println("Size", id3File.Size())
-
-	fmt.Println("  Title: ", id3File.Title())
-	if title != "" {
-		id3File.SetTitle(title)
-		fmt.Println("         ", title)
-	}
-
-	fmt.Println("  Artist:", id3File.Artist())
-	if artist != "" {
-		id3File.SetArtist(artist)
-		fmt.Println("         ", artist)
-	}
-
-	fmt.Println("  Album: ", id3File.Album())
-	if album != "" {
-		id3File.SetAlbum(album)
-		fmt.Println("         ", album)
-	}
-
-	err = id3File.Close()
-	if err != nil {
-		fmt.Println(err)
-	}
-
 }
 
 func readMp3Data(err error, file *os.File) {
