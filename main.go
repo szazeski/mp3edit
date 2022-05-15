@@ -7,8 +7,8 @@ import (
 	"os"
 )
 
-const VERSION = "1.0.0"
-const BUILD_DATE = "2022-05-13"
+const VERSION = "1.0.1"
+const BUILD_DATE = "2022-05-14"
 
 func main() {
 
@@ -18,6 +18,8 @@ func main() {
 	flag.StringVar(&artist, "artist", "", "a string")
 	var album string
 	flag.StringVar(&album, "album", "", "a string")
+	var showHelp bool
+	flag.BoolVar(&showHelp, "help", false, "Show help text on how to use and version info")
 
 	// todo -joinedFilename=joined.mp3
 	// todo -trimStart=5s
@@ -27,6 +29,11 @@ func main() {
 	// todo -bitrate=64kbps
 
 	flag.Parse()
+
+	if showHelp {
+		displayHelpText("")
+		os.Exit(0)
+	}
 
 	filenames := flag.Args()
 
@@ -71,24 +78,15 @@ func main() {
 	}
 }
 
-func noTargetsWereGiven(arguments []string) bool {
-	return len(arguments) == 0
-}
-
-func separateCommandLineArgumentsFromFlags() []string {
-
-	return []string{}
-}
-
 func displayHelpText(errorText string) {
 	if errorText != "" {
 		fmt.Println(errorText)
 	}
 
 	fmt.Println("mp3edit <options> <filename>")
-	fmt.Println(" easy mp3 tag editor and simple file operations")
+	fmt.Println(" easy mp3 tag editor and simple audio operations")
 	fmt.Println(" version " + VERSION + " built " + BUILD_DATE)
-	fmt.Println(`  -title="Title"`)
-	fmt.Println("  -artist=")
-	fmt.Println("  -album=")
+	fmt.Println(`  -title="New Title"`)
+	fmt.Println(`  -artist="New Artist"`)
+	fmt.Println(`  -album="New Album"`)
 }
