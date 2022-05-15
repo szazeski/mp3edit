@@ -3,8 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/hajimehoshi/go-mp3"
-	"github.com/mikkyang/id3-go"
+	"github.com/bogem/id3v2"
 	"os"
 )
 
@@ -39,7 +38,7 @@ func main() {
 	for i, filename := range filenames {
 		fmt.Println(i+1, filename)
 
-		id3File, err := id3.Open(filename)
+		id3File, err := id3v2.Open(filename, id3v2.Options{Parse: true})
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -62,20 +61,14 @@ func main() {
 			fmt.Println("         ", album)
 		}
 
+		if err = id3File.Save(); err != nil {
+			fmt.Println("Error while saving a tag: ", err)
+		}
 		err = id3File.Close()
 		if err != nil {
 			fmt.Println(err)
 		}
 	}
-}
-
-func readMp3Data(err error, file *os.File) {
-	decoder, err := mp3.NewDecoder(file)
-	if err != nil {
-		fmt.Println("Unable to open file")
-	}
-	decoder.Length()
-	decoder.SampleRate()
 }
 
 func noTargetsWereGiven(arguments []string) bool {
