@@ -23,6 +23,12 @@ Simple cross-platform command line tool to edit MP3 ID3 tags and
 
 ### Mac
 
+Option 1:
+
+`brew tap szazeski/tap && brew install szazeski/tap/mp3edit`
+
+Option 2:
+
 `curl https://github.com/szazeski/mp3edit/releases/download/v1.0.1/mp3edit-darwin-$(arch) --output mp3edit && chmod +x mp3edit`
 
 Since the file is not signed with Apple, you will need to right click on it and select open. Gatekeeper will ask if you want to run it. You only have to do this once.
