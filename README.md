@@ -25,7 +25,7 @@ Simple cross-platform command line tool to edit MP3 ID3 tags and
 
 Option 1:
 
-`brew tap szazeski/tap && brew install szazeski/tap/mp3edit`
+`brew install szazeski/tap/mp3edit`
 
 Option 2:
 
