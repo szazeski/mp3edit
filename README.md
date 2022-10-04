@@ -14,31 +14,17 @@ Simple cross-platform command line tool to edit MP3 ID3 tags and
 
 ## Installation
 
+For Linux/Mac:
 
-### Linux
+```
+wget https://github.com/szazeski/mp3edit/releases/download/v1.0.3/mp3edit_1.0.3_$(uname -s)_$(uname -m).tar.gz -O mp3edit.tar.gz && tar -xf mp3edit.tar.gz && chmod +x mp3edit && sudo mv mp3edit /usr/bin/
+```
 
-`curl https://github.com/szazeski/mp3edit/releases/download/v1.0.3/mp3edit-linux-$(arch) --output mp3edit && chmod +x mp3edit && sudo mv mp3edit /usr/bin`
+Mac
 
-(Some distros give strange arch replies - your options are **amd64** for most Intel/Amd 64-bit, **386** for old Intel/Amd 32-bit, **arm** for older arm devices, and **arm64** for newer arm devices)
-
-### Mac
-
-Option 1:
-
+homebrew 
 `brew install szazeski/tap/mp3edit`
 
-Option 2:
-
-`curl https://github.com/szazeski/mp3edit/releases/download/v1.0.3/mp3edit-darwin-$(arch) --output mp3edit && chmod +x mp3edit`
-
-Since the file is not signed with Apple, you will need to right click on it and select open. Gatekeeper will ask if you want to run it. You only have to do this once.
-
-`sudo mv mp3edit /usr/bin`
-
-(**amd64** is for intel mac and **arm64** is for M1)
-
-### Windows (Powershell)
-
-`wget https://github.com/szazeski/mp3edit/releases/download/v1.0.3/mp3edit-windows-amd64.exe -outfile mp3edit.exe` 
-
-then move to C:\Windows\mp3edit.exe or other folder in your PATH.
+Windows (Powershell)
+Invoke-WebRequest https://github.com/szazeski/mp3edit/releases/download/v1.0.3/mp3edit_1.0.3_Windows_x86_64.tar.gz -outfile mp3edit.tar.gz; tar -xzf mp3edit.tar.gz; echo "if you want, move the file to a PATH directory like WINDOWS folder"
+then move to C:\Windows\ or other PATH directory
