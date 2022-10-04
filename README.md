@@ -23,7 +23,7 @@ mp3edit <options> <filename>
 
 *Example to clear all tags*
 
-`mp3eedit -clear file.mp3`
+`mp3edit -clear file.mp3`
 
 
 ## Installation
