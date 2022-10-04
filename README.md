@@ -17,7 +17,7 @@ Simple cross-platform command line tool to edit MP3 ID3 tags and
 
 ### Linux
 
-`curl https://github.com/szazeski/mp3edit/releases/download/v1.0.1/mp3edit-linux-$(arch) --output mp3edit && chmod +x mp3edit && sudo mv mp3edit /usr/bin`
+`curl https://github.com/szazeski/mp3edit/releases/download/v1.0.3/mp3edit-linux-$(arch) --output mp3edit && chmod +x mp3edit && sudo mv mp3edit /usr/bin`
 
 (Some distros give strange arch replies - your options are **amd64** for most Intel/Amd 64-bit, **386** for old Intel/Amd 32-bit, **arm** for older arm devices, and **arm64** for newer arm devices)
 
@@ -29,7 +29,7 @@ Option 1:
 
 Option 2:
 
-`curl https://github.com/szazeski/mp3edit/releases/download/v1.0.1/mp3edit-darwin-$(arch) --output mp3edit && chmod +x mp3edit`
+`curl https://github.com/szazeski/mp3edit/releases/download/v1.0.3/mp3edit-darwin-$(arch) --output mp3edit && chmod +x mp3edit`
 
 Since the file is not signed with Apple, you will need to right click on it and select open. Gatekeeper will ask if you want to run it. You only have to do this once.
 
@@ -39,6 +39,6 @@ Since the file is not signed with Apple, you will need to right click on it and 
 
 ### Windows (Powershell)
 
-`wget https://github.com/szazeski/mp3edit/releases/download/v1.0.1/mp3edit-windows-amd64.exe -outfile mp3edit.exe` 
+`wget https://github.com/szazeski/mp3edit/releases/download/v1.0.3/mp3edit-windows-amd64.exe -outfile mp3edit.exe` 
 
 then move to C:\Windows\mp3edit.exe or other folder in your PATH.
