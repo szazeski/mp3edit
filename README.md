@@ -31,7 +31,7 @@ mp3edit <options> <filename>
 **Linux/Mac**
 
 ```
-wget https://github.com/szazeski/mp3edit/releases/download/v1.0.3/mp3edit_1.0.3_$(uname -s)_$(uname -m).tar.gz -O mp3edit.tar.gz && tar -xf mp3edit.tar.gz && chmod +x mp3edit && sudo mv mp3edit /usr/bin/
+wget https://github.com/szazeski/mp3edit/releases/download/v1.0.3/mp3edit_1.0.3_$(uname -s)_$(uname -m).tar.gz -O mp3edit.tar.gz && tar -xf mp3edit.tar.gz && chmod +x mp3edit && sudo mv mp3edit /usr/local/bin/
 ```
 
 **Mac**
