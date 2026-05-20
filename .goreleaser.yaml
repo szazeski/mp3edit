@@ -6,7 +6,6 @@ before:
 builds:
   - env:
       - CGO_ENABLED=0
-      - CGO_ENABLED=0
     goos:
       - linux
       - windows
@@ -16,16 +15,22 @@ builds:
       - amd64
       - arm64
 
-archives:
-  - replacements:
-      darwin: Darwin
-      linux: Linux
-      windows: Windows
-      386: i386
-      amd64: x86_64
-
 checksum:
   name_template: 'checksums.txt'
+
+archives:
+  - id: checkssl
+    name_template: >-
+      {{- .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end -}}
+
+    format_overrides:
+      - goos: windows
+        format: zip
 
 brews:
   - name: mp3edit
@@ -49,8 +54,8 @@ brews:
     # Default is the root folder.
     folder: Formula
 
-    homepage: "https://www.checkssl.org/"
-    description: "Simple tool to check or monitor TLS/SSL certificates are working."
+    homepage: "https://opensource.zazeski.com/"
+    description: "Simple cli to view or change mp3 id3 tags."
     license: "MIT"
 
     test: |
