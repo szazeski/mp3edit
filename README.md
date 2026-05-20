@@ -14,7 +14,7 @@ mp3edit <options> <filename>
 ```
 
 
-`mp3edit -title="Example Title" -album="Example Album" -artist=Steve 01.mp3`
+`mp3edit -title="Example Title" -album="Example Album" -artist="Steve 01.mp3"`
 
 
 *Example to bulk change all files with new artist but leave all other fields alone*
@@ -24,6 +24,10 @@ mp3edit <options> <filename>
 *Example to clear all tags*
 
 `mp3edit -clear file.mp3`
+
+*View all files in a folder in a compact view
+
+`mp3edit -s *.mp3`
 
 
 ## Installation
