@@ -25,7 +25,7 @@ mp3edit <options> <filename>
 
 `mp3edit -clear file.mp3`
 
-*View all files in a folder in a compact view
+*View all files in a folder in a compact view*
 
 `mp3edit -s *.mp3`
 
