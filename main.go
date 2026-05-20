@@ -3,12 +3,18 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/bogem/id3v2"
 	"os"
+	"strconv"
+	"strings"
+
+	"github.com/bogem/id3v2"
 )
 
-const VERSION = "1.0.3"
-const BUILD_DATE = "2022-06-25"
+const VERSION = "1.0.4"
+const BUILD_DATE = "2026-05-19"
+
+var singleLine = false
+var buffer = ""
 
 func main() {
 
@@ -26,6 +32,8 @@ func main() {
 	flag.BoolVar(&showVersion, "version", false, "Show version info")
 	var showHelp bool
 	flag.BoolVar(&showHelp, "help", false, "Show help text on how to use")
+	// global var
+	flag.BoolVar(&singleLine, "s", false, "Show each file on single line")
 
 	// todo -joinedFilename=joined.mp3
 	// todo -trimStart=5s
@@ -44,7 +52,7 @@ func main() {
 	filenames := flag.Args()
 
 	if len(filenames) == 0 {
-		displayHelpText("missing filenames, try mp3edit track01.mp3 or mp3edit *.mp3")
+		displayHelpText("missing filenames, try mp3edit track01.mp3 or mp3edit -singleLine *.mp3")
 		os.Exit(1)
 	}
 
@@ -60,7 +68,7 @@ func main() {
 	}
 
 	for i, filename := range filenames {
-		fmt.Println(i+1, filename)
+		output(strconv.Itoa(i+1)+") ", filename)
 
 		id3File, err := id3v2.Open(filename, id3v2.Options{Parse: true})
 		if err != nil {
@@ -72,31 +80,33 @@ func main() {
 			id3File.DeleteAllFrames()
 		}
 
-		fmt.Println("  Title: ", id3File.Title())
+		output("   Title: ", id3File.Title())
 		if title != "" {
 			id3File.SetTitle(title)
-			fmt.Println("         ", title)
+			output("         ", title)
 		}
 
-		fmt.Println("  Artist:", id3File.Artist())
+		output("  Artist: ", id3File.Artist())
 		if artist != "" {
 			id3File.SetArtist(artist)
-			fmt.Println("         ", artist)
+			output("         ", artist)
 		}
 
-		fmt.Println("  Album: ", id3File.Album())
+		output("   Album: ", id3File.Album())
 		if album != "" {
 			id3File.SetAlbum(album)
-			fmt.Println("         ", album)
+			output("         ", album)
 		}
 
 		if err = id3File.Save(); err != nil {
-			fmt.Println("Error while saving a tag: ", err)
+			output("Error while saving a tag: ", err.Error())
 		}
 		err = id3File.Close()
 		if err != nil {
 			fmt.Println(err)
 		}
+
+		outputBuffer()
 	}
 }
 
@@ -109,9 +119,23 @@ func displayHelpText(errorText string) {
 	fmt.Println(`  -title="New Title"`)
 	fmt.Println(`  -artist="New Artist"`)
 	fmt.Println(`  -album="New Album"`)
+	fmt.Println("  -singleLine")
 
 	if errorText != "" {
 		fmt.Println("")
 		fmt.Println(errorText)
 	}
+}
+
+func output(input string, value string) {
+	if singleLine {
+		buffer = buffer + strings.TrimSpace(input) + value + " "
+	} else {
+		buffer = buffer + input + value + "\n"
+	}
+}
+
+func outputBuffer() {
+	fmt.Println(buffer)
+	buffer = ""
 }
